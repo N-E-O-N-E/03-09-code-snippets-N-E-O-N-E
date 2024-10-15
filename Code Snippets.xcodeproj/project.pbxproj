@@ -10,7 +10,6 @@
 		CE75F28B2C8B152C001AD0A3 /* Code_SnippetsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F28A2C8B152C001AD0A3 /* Code_SnippetsApp.swift */; };
 		CE75F28F2C8B152D001AD0A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE75F28E2C8B152D001AD0A3 /* Assets.xcassets */; };
 		CE75F2922C8B152D001AD0A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE75F2912C8B152D001AD0A3 /* Preview Assets.xcassets */; };
-		FA0B8A3B2CBD611000DCB9BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0B8A3A2CBD611000DCB9BE /* GoogleService-Info.plist */; };
 		FA53FD2B2CBD22F800D08C95 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD2A2CBD22F800D08C95 /* FirebaseAnalytics */; };
 		FA53FD2D2CBD22F800D08C95 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD2C2CBD22F800D08C95 /* FirebaseAnalyticsOnDeviceConversion */; };
 		FA53FD2F2CBD22F800D08C95 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD2E2CBD22F800D08C95 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -26,7 +25,6 @@
 		CE75F28A2C8B152C001AD0A3 /* Code_SnippetsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code_SnippetsApp.swift; sourceTree = "<group>"; };
 		CE75F28E2C8B152D001AD0A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE75F2912C8B152D001AD0A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FA0B8A3A2CBD611000DCB9BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -60,7 +58,6 @@
 				CE75F2892C8B152C001AD0A3 /* Code Snippets */,
 				FA53FD362CBD230A00D08C95 /* Frameworks */,
 				CE75F2882C8B152C001AD0A3 /* Products */,
-				FA0B8A3A2CBD611000DCB9BE /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,7 +166,6 @@
 			files = (
 				CE75F2922C8B152D001AD0A3 /* Preview Assets.xcassets in Resources */,
 				CE75F28F2C8B152D001AD0A3 /* Assets.xcassets in Resources */,
-				FA0B8A3B2CBD611000DCB9BE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
