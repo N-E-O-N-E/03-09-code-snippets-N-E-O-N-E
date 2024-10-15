@@ -14,13 +14,11 @@ struct CategoryAddSheet: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        
         VStack {
             Text("Add new Category")
                 .font(.title)
-            
+
             HStack {
-                
                 TextField("new category", text: $input)
                     .textFieldStyle(.roundedBorder)
                 
@@ -30,9 +28,7 @@ struct CategoryAddSheet: View {
                 }.buttonStyle(.borderedProminent)
                 
             }.padding(30)
-            
         }
-        
         .presentationDetents([.fraction(0.2)])
     }
 }

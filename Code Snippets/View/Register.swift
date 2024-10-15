@@ -14,74 +14,52 @@ struct Register: View {
     @State var emailConfirm: String = ""
     @State var password: String = ""
     @State var passwordConfirm: String = ""
-    @State var registerDisabled: Bool = true
-    @State var isRegistered: Bool = false
-    @State var passwordAlert: Bool = false
-    
-    func checkRegisterDisabled() {
-        if !email.isEmpty && !password.isEmpty && email == emailConfirm && password == passwordConfirm {
-            registerDisabled = false
-        } else {
-            registerDisabled = true
-        }
-    }
     
     var body: some View {
-        
         VStack {
-            
             Text("Authentification\n").font(.title).bold()
-            
             Text("Register").font(.title2).bold()
-            
             TextField("email", text: $email)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
                 .onChange(of: email) { oldValue, newValue in
-                    checkRegisterDisabled()
-                }
+                    appViewModel.checkRegisterDisabled(email: email, password: password, emailConfirm: emailConfirm, passwordConfirm: passwordConfirm)}
             TextField("emailConfirm", text: $emailConfirm)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
                 .onChange(of: emailConfirm) { oldValue, newValue in
-                    checkRegisterDisabled()
-                }
+                    appViewModel.checkRegisterDisabled(email: email, password: password, emailConfirm: emailConfirm, passwordConfirm: passwordConfirm)}
             SecureField("password", text: $password)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
                 .onChange(of: password) { oldValue, newValue in
-                    checkRegisterDisabled()
-                }
+                    appViewModel.checkRegisterDisabled(email: email, password: password, emailConfirm: emailConfirm, passwordConfirm: passwordConfirm)}
             SecureField("passwordConfirm", text: $passwordConfirm)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
                 .onChange(of: passwordConfirm) { oldValue, newValue in
-                    checkRegisterDisabled()
-                }
+                    appViewModel.checkRegisterDisabled(email: email, password: password, emailConfirm: emailConfirm, passwordConfirm: passwordConfirm)}
             
             Button("Register") {
-                if password.count >= 6 {
+                if appViewModel.passwortLength(email: email, password: password) {
                     appViewModel.register(email: email, password: password)
-                    isRegistered.toggle()
                 } else {
-                    passwordAlert.toggle()
+                    appViewModel.passwordAlert.toggle()
                 }
-            }.buttonStyle(.borderedProminent).disabled(registerDisabled)
                 
-            
-            
-                .alert("Password to short!\nMinimum 6 characters", isPresented: $passwordAlert) {
+            }.buttonStyle(.borderedProminent).disabled(appViewModel.registerDisabled)
+                .alert("E-Mail already exists!", isPresented: $appViewModel.emailAlert) {
                     Button("Confirm") {
-                        passwordAlert.toggle()
+                        appViewModel.emailAlert.toggle()
+                    }.buttonStyle(.borderedProminent)
+                }
+                .alert("Password to short!\nMinimum 6 characters", isPresented: $appViewModel.passwordAlert) {
+                    Button("Confirm") {
+                        appViewModel.passwordAlert.toggle()
                     }.buttonStyle(.borderedProminent)
                 }
             
-            
-            
         }.padding(40)
-        
-            .navigationDestination(isPresented: $isRegistered) {
+            .navigationDestination(isPresented: $appViewModel.isRegistered) {
                 CategoryListView()
             }
-        
         Spacer()
-        
     }
 }
 

@@ -10,13 +10,10 @@ import SwiftUI
 struct SnippetListView: View {
     @EnvironmentObject var appViewModel: AppViewModel
     @State var isPresented: Bool = false
-    
-    var category = ""
+    var category: String = ""
     
     var body: some View {
-        
         List(appViewModel.snippets.filter({ $0.category == category })) { snippet in
-            
             VStack(alignment: .leading) {
                 HStack {
                     Text(snippet.name)
@@ -42,7 +39,6 @@ struct SnippetListView: View {
         }
     }
 }
-
 
 #Preview {
     SnippetListView()

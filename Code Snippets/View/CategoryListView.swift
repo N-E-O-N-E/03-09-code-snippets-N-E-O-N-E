@@ -12,26 +12,12 @@ struct CategoryListView: View {
     @EnvironmentObject var appViewModel: AppViewModel
     @State var isPresented: Bool = false
     
-    
-    
     var body: some View {
-        
-            
             List(appViewModel.categories, id: \.self) { category in
                 NavigationLink("\(category.description)") {
                     SnippetListView(category: category.description)
                 }
-                
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
             .toolbar {
                 Button {
                     isPresented.toggle()
@@ -47,7 +33,6 @@ struct CategoryListView: View {
         .sheet(isPresented: $isPresented) {
             CategoryAddSheet(isPresented: $isPresented)
         }
-        
     }
 }
 
