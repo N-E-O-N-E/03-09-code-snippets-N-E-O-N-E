@@ -10,28 +10,37 @@ import SwiftUI
 struct CategoryListView: View {
     
     @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject var categoryViewModel: CategoriyViewModel
+    @EnvironmentObject var snippetsViewModel: SnippetsViewModel
+    
     @State var isPresented: Bool = false
     
     var body: some View {
-            List(appViewModel.categories, id: \.self) { category in
-                NavigationLink("\(category.description)") {
-                    SnippetListView(category: category.description)
-                }
+        
+        Text("Categories Overview").font(.title).bold()
+        
+        List(categoryViewModel.categories ?? []) { category in
+            NavigationLink("\(Image(systemName: "archivebox.fill")) \(category.name)") {
+                SnippetListView(categoryID: category.id ?? "")
             }
-            .toolbar {
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    Image(systemName: "plus.app")
-                }
-                Button {
-                    appViewModel.signOut()
-                } label: {
-                    Image(systemName: "door.left.hand.open")
-                }
+        }
+        .toolbar {
+            Button {
+                isPresented.toggle()
+            } label: {
+                Image(systemName: "plus.app")
             }
+            Button {
+                appViewModel.signOut()
+            } label: {
+                Image(systemName: "door.left.hand.open")
+            }
+        }
         .sheet(isPresented: $isPresented) {
             CategoryAddSheet(isPresented: $isPresented)
+        }
+        .onAppear() {
+            categoryViewModel.fetchCategories()
         }
     }
 }
@@ -39,4 +48,7 @@ struct CategoryListView: View {
 #Preview {
     CategoryListView()
         .environmentObject(AppViewModel())
+        .environmentObject(CategoriyViewModel())
+        .environmentObject(SnippetsViewModel())
+    
 }

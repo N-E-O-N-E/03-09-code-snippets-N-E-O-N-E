@@ -9,11 +9,16 @@ import SwiftUI
 
 struct SnippetListView: View {
     @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject var categoryViewModel: CategoriyViewModel
+    @EnvironmentObject var snippetsViewModel: SnippetsViewModel
+    var categoryID: String = ""
+    
+    
     @State var isPresented: Bool = false
-    var category: String = ""
     
     var body: some View {
-        List(appViewModel.snippets.filter({ $0.category == category })) { snippet in
+        List(snippetsViewModel.snippets ?? []) { snippet in
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text(snippet.name)
@@ -35,7 +40,7 @@ struct SnippetListView: View {
             }
         }
         .sheet(isPresented: $isPresented) {
-            SnippetAddSheet(isPresented: $isPresented, category: category.description)
+            SnippetAddSheet(isPresented: $isPresented, categoryID: categoryID )
         }
     }
 }
@@ -43,4 +48,6 @@ struct SnippetListView: View {
 #Preview {
     SnippetListView()
         .environmentObject(AppViewModel())
+        .environmentObject(CategoriyViewModel())
+        .environmentObject(SnippetsViewModel())
 }

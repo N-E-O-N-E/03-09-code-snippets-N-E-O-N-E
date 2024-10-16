@@ -10,6 +10,7 @@ import SwiftUI
 struct Register: View {
     @EnvironmentObject var appViewModel: AppViewModel
     
+    @State var username: String = ""
     @State var email: String = ""
     @State var emailConfirm: String = ""
     @State var password: String = ""
@@ -19,6 +20,9 @@ struct Register: View {
         VStack {
             Text("Authentification\n").font(.title).bold()
             Text("Register").font(.title2).bold()
+            
+            TextField("Username", text: $username)
+                .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
             TextField("email", text: $email)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)
                 .onChange(of: email) { oldValue, newValue in
@@ -38,7 +42,7 @@ struct Register: View {
             
             Button("Register") {
                 if appViewModel.passwortLength(email: email, password: password) {
-                    appViewModel.register(email: email, password: password)
+                    appViewModel.register(username: username , email: email, password: password)
                 } else {
                     appViewModel.passwordAlert.toggle()
                 }
@@ -59,6 +63,10 @@ struct Register: View {
             .navigationDestination(isPresented: $appViewModel.isRegistered) {
                 CategoryListView()
             }
+            .onAppear() {
+                appViewModel.isRegistered = false
+            }
+        
         Spacer()
     }
 }

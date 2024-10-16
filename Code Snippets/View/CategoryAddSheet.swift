@@ -10,6 +10,9 @@ import SwiftUI
 struct CategoryAddSheet: View {
     
     @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject var categoryViewModel: CategoriyViewModel
+    @EnvironmentObject var snippetsViewModel: SnippetsViewModel
+    
     @State private var input: String = ""
     @Binding var isPresented: Bool
     
@@ -23,7 +26,8 @@ struct CategoryAddSheet: View {
                     .textFieldStyle(.roundedBorder)
                 
                 Button("Add") {
-                    appViewModel.addCategory(newCategory: input)
+                    //appViewModel.addCategory(newCategory: input)
+                    categoryViewModel.addCategory(name: input)
                     isPresented = false
                 }.buttonStyle(.borderedProminent)
                 
@@ -36,4 +40,7 @@ struct CategoryAddSheet: View {
 #Preview {
     @Previewable @State var test = false
     CategoryAddSheet(isPresented: $test)
+        .environmentObject(AppViewModel())
+        .environmentObject(CategoriyViewModel())
+        .environmentObject(SnippetsViewModel())
 }

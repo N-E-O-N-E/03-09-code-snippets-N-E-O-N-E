@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 import GoogleSignIn
 
 class AppViewModel: ObservableObject {
@@ -15,13 +16,6 @@ class AppViewModel: ObservableObject {
         checkLogin()
     }
     
-    @Published private(set) var snippets: [Snippets] = [
-        Snippets(name: "CodeSnippet 1", category: "Other", code: "<This is a code example for Other!!!>"),
-        Snippets(name: "CodeSnippet 2", category: "Functions", code: "<This is a code exapmle for Functions!!!>"),
-        Snippets(name: "CodeSnippet 3", category: "Methods", code: "<This is a Code example for Methods!!!>")]
-    @Published private(set) var categories: [String] = [
-        "Functions","Methods","Other"
-    ]
     @Published var isRegistered: Bool = false
     @Published var passwordAlert: Bool = false
     @Published var emailAlert: Bool = false
@@ -34,11 +28,15 @@ class AppViewModel: ObservableObject {
     
     // Authentification -----------------------------------------------
     
-    @Published private(set) var user: User?
+    @Published private(set) var user: FirestoreUser?
     private let auth = Auth.auth()
     
     var isAuthenticated: Bool {
         self.user != nil
+    }
+    
+    var isAnonym: Bool {
+        auth.currentUser?.anonymous() ?? true
     }
     
     func signInWithGoogle() {
@@ -55,11 +53,11 @@ class AppViewModel: ObservableObject {
             
             guard let result else { return }
             print("User signed in: \(result.user)")
-            self.user = result.user
+            self.fetchFirebaseUser(id: result.user.uid)
         }
     }
     
-    func register(email: String, password: String) {
+    func register(username: String, email: String, password: String) {
         auth.createUser(withEmail: email, password: password) { result, error in
             if let error = error?.localizedDescription {
                 print("Error registering: \(error.description)")
@@ -69,8 +67,10 @@ class AppViewModel: ObservableObject {
             
             guard let result else { return }
             print("User created: \(result.user)")
-            self.user = result.user
-            self.isRegistered.toggle()
+            
+            self.createFirebaseUser(id: result.user.uid, username: username, email: email, password: password)
+            self.fetchFirebaseUser(id: result.user.uid)
+            self.isRegistered = true
         }
     }
     
@@ -82,8 +82,11 @@ class AppViewModel: ObservableObject {
             }
             
             guard let result else { return }
+            
+            self.createFirebaseUser(id: result.user.uid, username: "anonym", email: "", password: "")
+            self.fetchFirebaseUser(id: result.user.uid)
             print("User signed in anonymously: \(result.user)")
-            self.user = result.user
+            self.isRegistered = true
         }
     }
     
@@ -100,23 +103,23 @@ class AppViewModel: ObservableObject {
     func checkLogin() {
         if let currentUser = self.auth.currentUser {
             print("Benutzer ist bereits angemeldet mit der Id: \(currentUser.uid)")
-            self.user = currentUser
+            self.fetchFirebaseUser(id: currentUser.uid)
         }
     }
     
     // Snippet --------------------------------------------------------
     
-    func addSnippet(newSnippet snippet: Snippets) {
-        self.snippets.append(snippet)
-        print("New Snippet: \(snippet)")
-    }
+//    func addSnippet(newSnippet snippet: Snippets) {
+//        self.snippets.append(snippet)
+//        print("New Snippet: \(snippet)")
+//    }
     
     // Category -------------------------------------------------------
     
-    func addCategory(newCategory category: String) {
-        self.categories.append(category)
-        print("New Category: \(category)")
-    }
+//    func addCategory(newCategory category: String) {
+//        self.categories.append(category)
+//        print("New Category: \(category)")
+//    }
     
     // Login ----------------------------------------------------------
     
@@ -146,5 +149,40 @@ class AppViewModel: ObservableObject {
             return false
         }
     }
+    
+    
+    // Firebase ---------------------------------------------------------
+    
+    func createFirebaseUser (id: String, username: String, email: String, password: String) {
+        let firebaseUser = FirestoreUser(id: id, username: username, email: email, password: password)
+        
+        do {
+            try FirebaseManager.shared.database.collection("users").document(id).setData(from: firebaseUser)
+        } catch {
+            print("Saving user to Firestore failed \(error)")
+        }
+    }
+        
+    func fetchFirebaseUser(id: String) {
+        // FirebaseManager.shared.database.collection("users").document(id).addSnapshotListener { (document, error) in
+        FirebaseManager.shared.database.collection("users").document(id).getDocument { (user, error) in
+            if let error {
+                print("Error fetching user from Firestore: \(error)")
+                return
+            }
+            
+            guard let user else { return }
+            
+            do{
+                let fireUser = try user.data(as: FirestoreUser.self)
+                self.user = fireUser
+            } catch {
+                print("User does not exist \(error)")
+            }
+        }
+    }
+    
+  
+    
 }
 

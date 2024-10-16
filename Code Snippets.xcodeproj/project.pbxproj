@@ -21,6 +21,7 @@
 		FA53FD352CBD22F800D08C95 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD342CBD22F800D08C95 /* FirebaseCrashlytics */; };
 		FA53FD382CBD230A00D08C95 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD372CBD230A00D08C95 /* FirebaseAuth */; };
 		FA53FD3A2CBD230F00D08C95 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FA53FD392CBD230F00D08C95 /* FirebaseStorage */; };
+		FA58AA222CBFBE2700406BEC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA58AA212CBFBE2700406BEC /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +30,6 @@
 		CE75F28E2C8B152D001AD0A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE75F2912C8B152D001AD0A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FA038A552CBF1B27006EFECA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FA038A5C2CBF1C85006EFECA /* Code-Snippets-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Code-Snippets-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +52,7 @@
 				FA53FD3A2CBD230F00D08C95 /* FirebaseStorage in Frameworks */,
 				FA53FD382CBD230A00D08C95 /* FirebaseAuth in Frameworks */,
 				FA53FD2D2CBD22F800D08C95 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				FA58AA222CBFBE2700406BEC /* FirebaseFirestore in Frameworks */,
 				FA038A592CBF1C3A006EFECA /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				CE75F2892C8B152C001AD0A3 /* Code Snippets */,
-				FA53FD362CBD230A00D08C95 /* Frameworks */,
 				CE75F2882C8B152C001AD0A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,7 +79,6 @@
 		CE75F2892C8B152C001AD0A3 /* Code Snippets */ = {
 			isa = PBXGroup;
 			children = (
-				FA038A5C2CBF1C85006EFECA /* Code-Snippets-Info.plist */,
 				FAF288492CBEA192009D1944 /* Model */,
 				FA026A752CBE977B00154BB5 /* View */,
 				FA026A742CBE977200154BB5 /* ViewModel */,
@@ -97,13 +96,6 @@
 				CE75F2912C8B152D001AD0A3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		FA53FD362CBD230A00D08C95 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,6 +502,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA53FD292CBD22F800D08C95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		FA58AA212CBFBE2700406BEC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA53FD292CBD22F800D08C95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

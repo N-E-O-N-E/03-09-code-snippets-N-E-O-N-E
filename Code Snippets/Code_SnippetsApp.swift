@@ -8,6 +8,8 @@ import FirebaseAuth
 struct Code_SnippetsApp: App {
     
     @StateObject private var appViewModel = AppViewModel()
+    @StateObject private var categoryViewModel = CategoriyViewModel()
+    @StateObject private var snippetsViewModel = SnippetsViewModel()
     
     init() {
         FirebaseConfiguration.shared.setLoggerLevel(.min)
@@ -29,5 +31,7 @@ struct Code_SnippetsApp: App {
             }
         }
         .environmentObject(self.appViewModel)
+        .environmentObject(self.categoryViewModel)
+        .environmentObject(self.snippetsViewModel)
     }
 }

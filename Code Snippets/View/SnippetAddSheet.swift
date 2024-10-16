@@ -9,10 +9,14 @@ import SwiftUI
 
 struct SnippetAddSheet: View {
     @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject var categoryViewModel: CategoriyViewModel
+    @EnvironmentObject var snippetsViewModel: SnippetsViewModel
+    
     @Binding var isPresented: Bool
     @State private var inputName: String = ""
-    var category = ""
     @State private var inputCodeSnippet: String = ""
+    
+    var categoryID: String = ""
     
     var body: some View {
         VStack {
@@ -21,7 +25,7 @@ struct SnippetAddSheet: View {
             VStack(alignment:.leading) {
                 TextField("Name: ", text: $inputName)
                     .textFieldStyle(.roundedBorder)
-                Text("Category: \(category.description)")
+                Text("Category: \(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")")
                     .font(.callout)
                     .padding(10)
                 Divider()
@@ -33,9 +37,9 @@ struct SnippetAddSheet: View {
                     .multilineTextAlignment(.leading)
                     .border(.gray)
                 Button("Save Snippet") {
-                    // add snippet in list
-                    let newSnippet = Snippets(name: inputName, category: category, code: inputCodeSnippet)
-                    appViewModel.addSnippet(newSnippet: newSnippet)
+//                    let newSnippet = Snippets(name: inputName, category: category, code: inputCodeSnippet)
+//                    appViewModel.addSnippet(newSnippet: newSnippet)
+                    snippetsViewModel.addSnippet(name: inputName, category: "\(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")", code: inputCodeSnippet)
                     isPresented = false
                 }.buttonStyle(.borderedProminent)
             }.padding(30)
@@ -48,4 +52,6 @@ struct SnippetAddSheet: View {
     @Previewable @State var test = false
     SnippetAddSheet(isPresented: $test)
         .environmentObject(AppViewModel())
+        .environmentObject(CategoriyViewModel())
+        .environmentObject(SnippetsViewModel())
 }
