@@ -34,6 +34,9 @@ struct CategoryAddSheet: View {
             }.padding(30)
         }
         .presentationDetents([.fraction(0.2)])
+        .onDisappear() {
+            categoryViewModel.fetchCategories()
+        }
     }
 }
 

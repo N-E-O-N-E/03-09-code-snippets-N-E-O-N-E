@@ -39,12 +39,15 @@ struct SnippetAddSheet: View {
                 Button("Save Snippet") {
 //                    let newSnippet = Snippets(name: inputName, category: category, code: inputCodeSnippet)
 //                    appViewModel.addSnippet(newSnippet: newSnippet)
-                    snippetsViewModel.addSnippet(name: inputName, category: "\(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")", code: inputCodeSnippet)
+                    snippetsViewModel.addSnippet(name: inputName, category: "\(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")", code: inputCodeSnippet, categoryID: categoryID)
                     isPresented = false
                 }.buttonStyle(.borderedProminent)
             }.padding(30)
         }
         .presentationDetents([.fraction(0.8)])
+        .onDisappear() {
+            snippetsViewModel.fetchSnippets(categoryID: categoryID)
+        }
     }
 }
 

@@ -42,6 +42,9 @@ struct SnippetListView: View {
         .sheet(isPresented: $isPresented) {
             SnippetAddSheet(isPresented: $isPresented, categoryID: categoryID )
         }
+        .onAppear() {
+            snippetsViewModel.fetchSnippets(categoryID: categoryID)
+        }
     }
 }
 
