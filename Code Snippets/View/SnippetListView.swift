@@ -23,8 +23,8 @@ struct SnippetListView: View {
                 HStack {
                     Text(snippet.name)
                     Spacer()
-                    Text(snippet.category)
-                        .foregroundStyle(.orange)
+                    Text(snippet.language)
+                        .foregroundStyle(.purple)
                 }
                 Divider()
                 Text(snippet.code)
@@ -32,6 +32,7 @@ struct SnippetListView: View {
                     .font(.callout).foregroundStyle(.red)
             }
         }
+        .navigationTitle("Snippets list")
         .toolbar {
             Button {
                 isPresented.toggle()

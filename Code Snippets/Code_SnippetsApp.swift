@@ -19,11 +19,21 @@ struct Code_SnippetsApp: App {
     var body: some Scene {
         
         WindowGroup {
-            
             if appViewModel.isAuthenticated {
-                NavigationStack {
-                    CategoryListView()
-                }
+                
+                TabView {
+                    Tab("Info", systemImage: "info.circle.fill") {
+                        NavigationStack {
+                            Info()
+                        }
+                    }
+                    Tab("Categories", systemImage: "archivebox.fill") {
+                        NavigationStack {
+                            CategoryListView()
+                        }
+                    }
+                }.tint(.black)
+                
             } else {
                 NavigationStack {
                     Login()

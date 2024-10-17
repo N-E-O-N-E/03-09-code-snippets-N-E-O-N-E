@@ -6,21 +6,23 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
+enum languages: String, CaseIterable {
+    case SwiftUi = "SwiftUI"
+    case JavaScript = "Kotlin"
+    case Python = "Python"
+    case Java   = "JavaScript"
+}
 
 struct Snippets: Codable, Identifiable {
     
-    var id: String?
+    @DocumentID var id: String?
     
     let name: String
     let category: String
+    let language: String
     let code: String
-    
-    init(id: String? = nil, name: String, category: String, code: String) {
-        self.id = UUID().uuidString
-        self.name = name
-        self.category = category
-        self.code = code
-    }
     
 }
 

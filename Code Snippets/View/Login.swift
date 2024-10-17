@@ -17,6 +17,7 @@ struct Login: View {
     var body: some View {
         VStack {
             Text("Authentification\n").font(.title).bold()
+            Image("code1").resizable().scaledToFill().frame(width: 350, height: 250).clipShape(.rect(cornerRadius: 10)).padding()
             Text("Login").font(.title2).bold()
             TextField("email", text: $email)
                 .textFieldStyle(.roundedBorder).textInputAutocapitalization(.never)

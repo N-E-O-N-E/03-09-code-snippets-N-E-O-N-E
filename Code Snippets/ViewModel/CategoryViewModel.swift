@@ -22,12 +22,11 @@ class CategoriyViewModel: ObservableObject {
     }
     
     func addCategory(name: String) {
-        let stringID = UUID().uuidString
         guard let userID = auth.currentUser?.uid else {return }
-        let firebaseCategory = Categories(id: stringID, name: name)
+        let firebaseCategory = Categories(name: name)
         
         do {
-            try FirebaseManager.shared.database.collection("users").document(userID).collection("categories").document(stringID).setData(from: firebaseCategory)
+            try FirebaseManager.shared.database.collection("users").document(userID).collection("categories").document().setData(from: firebaseCategory)
             fetchCategories()
         } catch {
             print("Saving categorie to Firestore failed \(error)")
@@ -36,7 +35,7 @@ class CategoriyViewModel: ObservableObject {
     
     func fetchCategories() {
         guard let userID = auth.currentUser?.uid else {return }
-        FirebaseManager.shared.database.collection("users").document(userID).collection("categories").getDocuments() { categories, error in
+        FirebaseManager.shared.database.collection("users").document(userID).collection("categories").addSnapshotListener { categories, error in
             if let error {
                 print("Fetching categories failed \(error)")
                 return

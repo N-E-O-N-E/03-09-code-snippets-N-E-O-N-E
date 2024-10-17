@@ -6,14 +6,12 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Categories: Codable, Identifiable {
     
-    let id: String?
-    let name: String
+    @DocumentID var id: String?
     
-    init(id: String?, name: String) {
-        self.id = UUID().uuidString
-        self.name = name
-    }
+    let name: String
+
 }

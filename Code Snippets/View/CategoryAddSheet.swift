@@ -26,7 +26,6 @@ struct CategoryAddSheet: View {
                     .textFieldStyle(.roundedBorder)
                 
                 Button("Add") {
-                    //appViewModel.addCategory(newCategory: input)
                     categoryViewModel.addCategory(name: input)
                     isPresented = false
                 }.buttonStyle(.borderedProminent)
@@ -34,9 +33,6 @@ struct CategoryAddSheet: View {
             }.padding(30)
         }
         .presentationDetents([.fraction(0.2)])
-        .onDisappear() {
-            categoryViewModel.fetchCategories()
-        }
     }
 }
 
