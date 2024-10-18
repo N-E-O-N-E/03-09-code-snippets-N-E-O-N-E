@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct CategoryAddSheet: View {
-    
-    @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var categoryViewModel: CategoriyViewModel
-    @EnvironmentObject var snippetsViewModel: SnippetsViewModel
+    @Binding var isPresented: Bool
     
     @State private var input: String = ""
-    @Binding var isPresented: Bool
     
     var body: some View {
         VStack {
@@ -39,7 +36,5 @@ struct CategoryAddSheet: View {
 #Preview {
     @Previewable @State var test = false
     CategoryAddSheet(isPresented: $test)
-        .environmentObject(AppViewModel())
         .environmentObject(CategoriyViewModel())
-        .environmentObject(SnippetsViewModel())
 }

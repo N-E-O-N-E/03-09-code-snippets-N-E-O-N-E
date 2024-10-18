@@ -5,6 +5,7 @@ import FirebaseAuth
 
 @main
 struct Code_SnippetsApp: App {
+    
     @StateObject private var appViewModel = AppViewModel()
     @StateObject private var categoryViewModel = CategoriyViewModel()
     @StateObject private var snippetsViewModel = SnippetsViewModel()

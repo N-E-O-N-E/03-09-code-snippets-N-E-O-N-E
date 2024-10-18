@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CategoryEditSheet: View {
-    @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var categoryViewModel: CategoriyViewModel
-    
-    @State private var input: String = ""
     @Binding var isPresentedForEdit: Bool
-    @Binding var categoryID: String
+    
+    var categorieID: String = ""
+    @State private var newName: String = ""
     
     var body: some View {
         VStack {
@@ -21,11 +20,11 @@ struct CategoryEditSheet: View {
                 .font(.title)
 
             HStack {
-                TextField(categoryViewModel.categories.first(where: { $0.id == categoryID })!.name, text: $input)
+                TextField(categoryViewModel.categories.first(where: { $0.id == categorieID })?.name ?? "", text: $newName)
                     .textFieldStyle(.roundedBorder)
                 
                 Button("Edit") {
-                    categoryViewModel.editCategorie(id: categoryID, name: input)
+                    categoryViewModel.editCategorie(categorieID: categorieID, newName: newName)
                     isPresentedForEdit = false
                 }.buttonStyle(.borderedProminent)
                 
@@ -36,7 +35,6 @@ struct CategoryEditSheet: View {
 }
 
 #Preview {
-    CategoryEditSheet(isPresentedForEdit: .constant(true), categoryID: .constant(""))
-        .environmentObject(AppViewModel())
+    CategoryEditSheet(isPresentedForEdit: .constant(true))
         .environmentObject(CategoriyViewModel())
 }
