@@ -17,7 +17,7 @@ struct SnippetListView: View {
     @State var isPresented: Bool = false
     
     var body: some View {
-        List(snippetsViewModel.snippets ?? []) { snippet in
+        List(snippetsViewModel.snippets) { snippet in
             
             VStack(alignment: .leading) {
                 HStack {

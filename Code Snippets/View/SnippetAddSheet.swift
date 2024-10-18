@@ -26,7 +26,7 @@ struct SnippetAddSheet: View {
             VStack(alignment:.leading) {
                 TextField("Name: ", text: $inputName)
                     .textFieldStyle(.roundedBorder)
-                Text("Category: \(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")")
+                Text("Category: \(categoryViewModel.categories.first(where: { $0.id == categoryID })?.name ?? "No Category")")
                     .font(.callout)
                     .padding(10)
                 Picker("Language:", selection: $inputLanguage) {
@@ -49,7 +49,7 @@ struct SnippetAddSheet: View {
                 Button("Save") {
                     //                    let newSnippet = Snippets(name: inputName, category: category, code: inputCodeSnippet)
                     //                    appViewModel.addSnippet(newSnippet: newSnippet)
-                    snippetsViewModel.addSnippet(name: inputName, category: "\(categoryViewModel.categories?.first(where: { $0.id == categoryID })?.name ?? "No Category")", code: inputCodeSnippet, language: inputLanguage, categoryID: categoryID)
+                    snippetsViewModel.addSnippet(name: inputName, category: "\(categoryViewModel.categories.first(where: { $0.id == categoryID })?.name ?? "No Category")", code: inputCodeSnippet, language: inputLanguage, categoryID: categoryID)
                     isPresented = false
                 }.buttonStyle(.borderedProminent)
             }.padding(30)

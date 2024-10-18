@@ -11,7 +11,7 @@ import FirebaseFirestore
 struct Categories: Codable, Identifiable {
     
     @DocumentID var id: String?
-    
+
     let name: String
 
 }

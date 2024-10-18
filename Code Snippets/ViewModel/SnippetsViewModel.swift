@@ -13,12 +13,8 @@ import FirebaseFirestore
 
 class SnippetsViewModel: ObservableObject {
     
-    @Published private(set) var snippets: [Snippets]?
+    @Published private(set) var snippets: [Snippets] = []
     private let auth = Auth.auth()
-    
-    init(snippets: [Snippets]? = nil) {
-        self.snippets = snippets
-    }
      
     func addSnippet(name: String, category: String, code: String, language: String, categoryID: String) {
         let categoryID = categoryID

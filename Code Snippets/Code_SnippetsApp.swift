@@ -3,10 +3,8 @@ import FirebaseCore
 import Firebase
 import FirebaseAuth
 
-
 @main
 struct Code_SnippetsApp: App {
-    
     @StateObject private var appViewModel = AppViewModel()
     @StateObject private var categoryViewModel = CategoriyViewModel()
     @StateObject private var snippetsViewModel = SnippetsViewModel()
@@ -17,7 +15,6 @@ struct Code_SnippetsApp: App {
     }
     
     var body: some Scene {
-        
         WindowGroup {
             if appViewModel.isAuthenticated {
                 
@@ -33,6 +30,7 @@ struct Code_SnippetsApp: App {
                         }
                     }
                 }.tint(.black)
+                   
                 
             } else {
                 NavigationStack {

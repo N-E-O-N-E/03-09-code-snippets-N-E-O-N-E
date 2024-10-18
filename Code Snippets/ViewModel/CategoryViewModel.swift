@@ -12,14 +12,9 @@ import FirebaseFirestore
 
 
 class CategoriyViewModel: ObservableObject {
-
+    @Published private(set) var categories: [Categories] = []
     
-    @Published private(set) var categories: [Categories]?
     private let auth = Auth.auth()
-    
-    init(categories: [Categories]? = nil) {
-        self.categories = categories
-    }
     
     func addCategory(name: String) {
         guard let userID = auth.currentUser?.uid else {return }
@@ -47,6 +42,18 @@ class CategoriyViewModel: ObservableObject {
                 try? categorie.data(as: Categories.self)
             }
         }
+    }
+    
+    func editCategorie(id: String, name: String) {
+        guard let userID = auth.currentUser?.uid else { return }
+        FirebaseManager.shared.database.collection("users").document(userID).collection("categories").document(id).updateData(["name": name])
+        
+    }
+    
+    func delCategorie(id: String) {
+        guard let userID = auth.currentUser?.uid else { return }
+        guard let categorieID = categories.first(where: { $0.id == id })?.id else { return }
+        FirebaseManager.shared.database.collection("users").document(userID).collection("categories").document(categorieID).delete()
     }
     
     
